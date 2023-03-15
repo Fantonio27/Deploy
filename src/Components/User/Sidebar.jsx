@@ -19,7 +19,22 @@ export default function Sidebar(props) {
 
     const link = ["", "Course_Diretory", "Examination", "Help"]
 
-    const [component, setcomponent] = useState(0)
+    const location = window.location.pathname
+
+    const url = () => {
+        let index
+        if(location === "/Dashboard"){
+            return index = 0
+        }else if (location === "/Dashboard/Course_Diretory"){
+            return index= 1
+        }else if (location === "/Dashboard/Examination"){
+            return index = 2
+        }else if (location === "/Dashboard/Help"){
+            return index = 3
+        }
+    }
+
+    const [component, setcomponent] = useState(url)
 
     const icon = [
         <DashboardIcon sx={{ fontSize: 28 }} />,
@@ -33,13 +48,12 @@ export default function Sidebar(props) {
             <List className="Sidebar-Listitem">
                 {Category.map((text, index) => (
                     Active = component === index,
-                    
-                    <div key={index}>
-                        <Link to={link[index]} style={{textDecoration: "none", color: "inherit"}}>
-                            <ListItem sx={{ paddingRight: '0px', }}>
+                    <div key={index} className="List">
+                        <Link to={link[index]} style={{textDecoration: "none", color: "inherit"}} state={props.data}>
+                            <ListItem sx={{ paddingRight: '0px'}}>
                                 <ListItemButton onClick={() => setcomponent(index)}
                                     sx={{
-                                        backgroundColor: Active ? '#fdfffc' : '#388E3C',
+                                        backgroundColor: Active ? '#fdfffc' : '#52b78803',
                                         borderRadius: Active ? "20px 0px 0px 20px / 20px 0px 20px 20px" : "10px",
                                         padding: '10px 5px',
                                         marginRight: Active ? "0px" : "15px",
